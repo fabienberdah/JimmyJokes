@@ -1,76 +1,124 @@
-@import url("https://fonts.googleapis.com/css2?family=Boogaloo&family=Playball&family=Special+Elite&display=swap");
+<!DOCTYPE html>
+<html lang="en">
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/3224fc804e.js"
+    crossorigin="anonymous"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Boogaloo&family=Playball&family=Special+Elite&display=swap");
 
-:root {
-  --title-font: "Playball", cursive;
-  --joke-font: "Special Elite", cursive;
-  --button-font: "Boogaloo", cursive;
-  /* --color-primary: var(--color-primary); */
-  /* --color-secondary: ; */
-  /* --medium-color: ; */
-  --accent: #64b6ac;
-  --bg-light: #f8f0fb;
-  --bg-dark: #8075ff;
-  --main: #6320ee;
-  --dark: #211a1d;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  background-color: var(--bg-dark);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-}
+    :root {
+      --title-font: "Playball", cursive;
+      --joke-font: "Special Elite", cursive;
+      --button-font: "Boogaloo", cursive;
+      /* --color-primary: var(--color-primary); */
+      /* --color-secondary: ; */
+      /* --medium-color: ; */
+      --accent: #64b6ac;
+      --bg-light: #f8f0fb;
+      --bg-dark: #8075ff;
+      --main: #6320ee;
+      --dark: #211a1d;
+    }
 
-.container {
-  background-color: var(--bg-light);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  min-height: 50vh;
-  width: 40vw;
-  border-radius: 25px;
-  padding: 2rem;
-}
+    body {
+      background-color: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
 
-h2 {
-  color: var(--accent);
-  font-size: 4rem;
-  font-family: var(--title-font);
-}
+    .container {
+      background-color: var(--bg-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      min-height: 50vh;
+      width: 40vw;
+      border-radius: 25px;
+      padding: 2rem;
+    }
 
-h1 {
-  margin: 1.5rem;
-  color: var(--main);
-  font-family: var(--joke-font);
-  text-align: center;
-}
+    h2 {
+      color: var(--accent);
+      font-size: 4rem;
+      font-family: var(--title-font);
+    }
 
-.btn {
-  font-family: var(--button-font);
-  background-color: var(--accent);
-  color: var(--bg-light);
-  font-size: 2rem;
-  padding: 1rem 2rem;
-  border: 0;
-  border-radius: 25px;
-  cursor: pointer;
-}
+    h1 {
+      margin: 1.5rem;
+      color: var(--main);
+      font-family: var(--joke-font);
+      text-align: center;
+    }
 
-.btn:focus {
-  outline: 0;
-  opacity: 0.95;
-}
-.btn:active {
-  transform: scale(0.98);
-}
+    .btn {
+      font-family: var(--button-font);
+      background-color: var(--accent);
+      color: var(--bg-light);
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      border: 0;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .btn:focus {
+      outline: 0;
+      opacity: 0.95;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+  </style>
+
+  <title>Jimmy Jokes</title>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Jimmy Jokes</h2>
+    <h1 id='joke'>Why was the broom late for the meeting? He overswept.</h1>
+    <button class='btn' id="newJoke">Next joke</button>
+  </div>
+
+  <script>
+    const jokeElement = document.getElementById("joke");
+    const jokeBtn = document.getElementById("newJoke");
+
+    //using Async/await
+    const generateJoke = async () => {
+      const config = {
+        headers: {
+          Accept: "application/json",
+        },
+      };
+      const res = await fetch("https://icanhazdadjoke.com/", config);
+
+      const data = await res.json();
+
+      jokeElement.innerText = data.joke;
+    };
+
+    jokeBtn.addEventListener("click", () => generateJoke());
+
+
+  </script>
+</body>
+
+</html>
